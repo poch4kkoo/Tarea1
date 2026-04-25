@@ -9,9 +9,17 @@ public class Comprador {
     private int vuelto = 0;
 
     public Comprador(Moneda m, EnumProducto TipoProducto, Expendedor exp){
-        Producto p = exp.comprarProducto(m, TipoProducto);
+        
+        Producto p = null;
+        try {
+            p = exp.comprarProducto(m, TipoProducto);
+        } catch (NoHayProductoException e) {
+            // Si no hay producto, imprimimos el error
+            System.out.println("Error: " + e.getMessage());
+            p = null;
+        }
 
-        if ( p != null){
+        if (p != null) {
             tipo = p.consumir();
         } else {
             tipo = null;
