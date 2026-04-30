@@ -9,9 +9,13 @@ public class Comprador {
         Producto p = null;
         try {
             p = exp.comprarProducto(m, TipoProducto);
+            //Error en caso de acabarse el stock
         } catch (NoHayProductoException e) {
-            // Si no hay producto, imprimimos el error
             System.out.println("Error: " + e.getMessage());
+            p = null;
+            //Error en caso de Pago insuficiente
+        } catch (PagoInsuficienteException e){
+            System.out.println("Error en el pago: " + e.getMessage());
             p = null;
         }
 

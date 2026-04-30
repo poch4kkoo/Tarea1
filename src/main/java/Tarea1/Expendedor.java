@@ -34,7 +34,8 @@ public class Expendedor {
         }
     }
 
-    public Producto comprarProducto(Moneda m, EnumProducto TipoProducto) throws NoHayProductoException {
+    public Producto comprarProducto(Moneda m, EnumProducto TipoProducto)
+            throws NoHayProductoException, PagoInsuficienteException {
 
         if (m == null){
             return null;
@@ -44,7 +45,7 @@ public class Expendedor {
 
         if (m.getValor() < precio){
             monVu.addElemento(m);
-            return null;
+            throw new PagoInsuficienteException("Pago Insuficiente, el dinero será devuelto");
         }
 
         Producto p = null;

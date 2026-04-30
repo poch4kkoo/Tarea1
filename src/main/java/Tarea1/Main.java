@@ -8,7 +8,7 @@ public class Main {
         Expendedor exp = new Expendedor(1);
         Comprador c;
 
-        Moneda m1 = new Moneda1000();
+        Moneda m1 = new Moneda100();
         c = new Comprador(m1,EnumProducto.COCA, exp);
         System.out.println("Compraste: " + c.queProducto());
         System.out.println("Vuelto recibido: $" + c.cuantoVuelto());
