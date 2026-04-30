@@ -34,7 +34,7 @@ public class Expendedor {
         }
     }
 
-    public Producto comprarProducto(Moneda m, EnumProducto TipoProducto){
+    public Producto comprarProducto(Moneda m, EnumProducto TipoProducto) throws NoHayProductoException {
 
         if (m == null){
             return null;
@@ -65,7 +65,8 @@ public class Expendedor {
             return p;
         } else {
             monVu.addElemento(m);
-            return null;
+
+            throw new NoHayProductoException("Agotado");
         }
     }
 

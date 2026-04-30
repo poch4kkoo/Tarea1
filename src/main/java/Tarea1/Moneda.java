@@ -1,12 +1,17 @@
 package Tarea1;
 
-public abstract class Moneda {
+public abstract class Moneda implements Comparable<Moneda> {
     public Moneda(){}
 
-    public Moneda getSerie(){
+    public abstract int getValor();
 
-        return this;
+    @Override
+    public String toString() {
+        return "valor: " + getValor() + ", serie: " + this.hashCode();
     }
 
-    public abstract int getValor();
+    @Override
+    public int compareTo(Moneda m) {
+        return Integer.compare(this.getValor(), m.getValor());
+    }
 }
