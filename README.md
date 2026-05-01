@@ -96,7 +96,6 @@ classDiagram
     Moneda <|-- Moneda100
     Moneda <|-- Moneda500
     Moneda <|-- Moneda1000
-    Moneda <|-- Moneda1500
 
     %% Relaciones de Uso y Excepciones
     Expendedor ..> Moneda : usa
