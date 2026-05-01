@@ -44,26 +44,36 @@ classDiagram
     PagoInsuficienteException --|> Exception
     PagoIncorrectoException --|> Exception
 
-    %% Jerarquía de Productos
+    %% Jerarquía de Productos (ACTUALIZADA)
     class Producto {
         <<abstract>>
+        +getSerie() String
     }
     class Bebida {
         <<abstract>>
+        +beber() String
     }
     class Dulce {
         <<abstract>>
+        +comer() String
     }
+    
     Bebida --|> Producto
     Dulce --|> Producto
     
+    %% Bebidas
     class CocaCola
     class Sprite
-    class Snickers
-    class Super8
+    class Fanta
     
     CocaCola --|> Bebida
     Sprite --|> Bebida
+    Fanta --|> Bebida
+    
+    %% Dulces
+    class Snickers
+    class Super8
+    
     Snickers --|> Dulce
     Super8 --|> Dulce
 
@@ -74,61 +84,29 @@ classDiagram
         -Deposito~Bebida~ fanta
         -Deposito~Dulce~ dulces
         -Deposito~Moneda~ monVu
-        +Expendedor(int Productos)
         +comprarProducto(Moneda, intID)
         +getVuelto()
     }
     
     class Deposito~T~ {
         -ArrayList~T~ lista
-        +ArrayList~T~ lista()
-        +getElemento()
+        +add(T)
+        +get() T
     }
-    
-    class DepositoBebida["Deposito~Bebida~"]
-    class DepositoDulce["Deposito~Dulce~"]
-    class DepositoMoneda["Deposito~Moneda~"]
-    
-    DepositoBebida --|> Deposito~T~
-    DepositoDulce --|> Deposito~T~
-    DepositoMoneda --|> Deposito~T~
 
-    Expendedor *-- DepositoBebida : contiene
-    Expendedor *-- DepositoDulce : contiene
-    Expendedor *-- DepositoMoneda : contiene
+    Expendedor *-- Deposito : contiene
 
-    class EnumProducto
-    Expendedor ..> EnumProducto : usa
-    
     class Comprador {
-        -String tipo
+        -String sonido
         -int vuelto
         +Comprador(Moneda, intID, Expendedor)
-        +cuantoVuelto()
-        +queProducto()
     }
-    Comprador ..> EnumProducto : usa
-    Comprador --> Expendedor : Comprar()
     
-    class Main
-    Main --> Comprador : instancia
-
-    class Moneda {
-        +int valor
-        +getSerie()
-    }
-    class Moneda100
-    class Moneda500
-    class Moneda1000
+    Comprador --> Expendedor : compra
+    Comprador ..> Moneda : usa
+    Expendedor ..> Moneda : entrega
     
-    Moneda100 --|> Moneda
-    Moneda500 --|> Moneda
-    Moneda1000 --|> Moneda
-
-    Comprador --> Moneda : usa
-    Expendedor --> Moneda : usa/guarda
-
-    %% Throws (Corregido a dependencia en lugar de composición)
+    %% Excepciones
     Expendedor ..> NoHayProductoException : throws
     Expendedor ..> PagoInsuficienteException : throws
     Expendedor ..> PagoIncorrectoException : throws
