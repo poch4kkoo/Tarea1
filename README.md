@@ -1,4 +1,4 @@
-# Tarea1
+# Tarea1 G21
 Integrantes:
 Javiera Antonia Diaz Grandon 
 Tomas Ignacio Pizarro Abarca
