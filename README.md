@@ -26,3 +26,106 @@ Para ejecutar el proyecto:
 
 Diagrama UML: 
 ![Diagrama UML](./imagen_2026-05-01_162943234.png)
+
+El diagrama digitalizado es :
+
+classDiagram
+    %% Jerarquía de Excepciones
+    class Exception {
+        <<Java Class>>
+    }
+    class NoHayProductoException
+    class PagoInsuficienteException
+    class PagoIncorrectoException
+    
+    NoHayProductoException --|> Exception
+    PagoInsuficienteException --|> Exception
+    PagoIncorrectoException --|> Exception
+
+    %% Jerarquía de Productos
+    class Producto {
+        <<abstract>>
+    }
+    class Bebida {
+        <<abstract>>
+    }
+    class Dulce {
+        <<abstract>>
+    }
+    Bebida --|> Producto
+    Dulce --|> Producto
+    
+    class CocaCola
+    class Sprite
+    class Snickers
+    class Super8
+    
+    CocaCola --|> Bebida
+    Sprite --|> Bebida
+    Snickers --|> Dulce
+    Super8 --|> Dulce
+
+    %% Sistema de Máquina Expendedora
+    class Expendedor {
+        -Deposito~Bebida~ coca
+        -Deposito~Bebida~ sprite
+        -Deposito~Dulce~ dulces
+        -Deposito~Moneda~ monVu
+        +Expendedor(int Productos)
+        +comprarProducto(Moneda, intID)
+        +getVuelto()
+    }
+    
+    class Deposito~T~ {
+        -ArrayList~T~ lista
+        +ArrayList~T~ lista()
+        +getElemento()
+    }
+    
+    class DepositoBebida["Deposito~Bebida~"]
+    class DepositoDulce["Deposito~Dulce~"]
+    class DepositoMoneda["Deposito~Moneda~"]
+    
+    DepositoBebida --|> Deposito~T~
+    DepositoDulce --|> Deposito~T~
+    DepositoMoneda --|> Deposito~T~
+
+    Expendedor *-- DepositoBebida : contiene
+    Expendedor *-- DepositoDulce : contiene
+    Expendedor *-- DepositoMoneda : contiene
+
+    class EnumProducto
+    Expendedor ..> EnumProducto : usa
+    
+    class Comprador {
+        -String sonido
+        -int vuelto
+        +Comprador(Moneda, intID, Expendedor)
+        +cuantoVuelto()
+        +queProducto()
+    }
+    Comprador ..> EnumProducto : usa
+    Comprador --> Expendedor : Comprar()
+    
+    class Main
+    Main --> Comprador : instancia
+
+    class Moneda {
+        +int valor
+        +getSerie()
+    }
+    class Moneda100
+    class Moneda500
+    class Moneda1000
+    
+    Moneda100 --|> Moneda
+    Moneda500 --|> Moneda
+    Moneda1000 --|> Moneda
+
+    Comprador --> Moneda : usa
+    Expendedor --> Moneda : usa/guarda
+
+    %% Throws (Corregido a dependencia en lugar de composición)
+    Expendedor ..> NoHayProductoException : throws
+    Expendedor ..> PagoInsuficienteException : throws
+    Expendedor ..> PagoIncorrectoException : throws
