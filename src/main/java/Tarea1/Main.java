@@ -8,11 +8,16 @@ public class Main {
         Expendedor exp = new Expendedor(1);
         Comprador c;
 
+        System.out.println("Primera compra: Se intenta pagar con menos dinero ");
+        System.out.println();
         Moneda m1 = new Moneda100();
         c = new Comprador(m1,EnumProducto.COCA, exp);
         System.out.println("Compraste: " + c.queProducto());
         System.out.println("Vuelto recibido: $" + c.cuantoVuelto());
 
+
+        System.out.println("Primera compra: Se intenta pagar con menos dinero ");
+        System.out.println();
         Moneda m2 = new Moneda1000();
         c = new Comprador(m2,EnumProducto.COCA, exp);
         System.out.println("Compraste: " + c.queProducto());
