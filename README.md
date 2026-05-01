@@ -25,4 +25,4 @@ Para ejecutar el proyecto:
 4. Ejecutar la clase "Main" ubicada en "src/main/java/Tarea1/Main.java".
 
 Diagrama UML: 
-![Diagrama UML](./imagen_2026-05-01_162943234.p.png)
+![Diagrama UML](./imagen_2026-05-01_162943234.png)
