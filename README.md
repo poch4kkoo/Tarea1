@@ -27,6 +27,7 @@ Para ejecutar el proyecto:
 Diagrama UML: 
 ![Diagrama UML](./imagen_2026-05-01_162943234.png)
 
+Se compartio a gemini el diagrama para poder estrucutrarlo de mejor manera y hacerlo mas estetico, como resultado nos dio un codigo, generando el mismo diagrama pero digitalizado.
 El diagrama digitalizado es :
 
 ```mermaid
