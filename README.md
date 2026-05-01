@@ -48,7 +48,7 @@ classDiagram
     }
     
     class Comprador {
-        -String sonido
+        -String tipo
         -int vuelto
         +Comprador(Moneda m, int id, Expendedor exp)
         +cuantoVuelto() int
