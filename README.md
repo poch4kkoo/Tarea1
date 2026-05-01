@@ -71,6 +71,7 @@ classDiagram
     class Expendedor {
         -Deposito~Bebida~ coca
         -Deposito~Bebida~ sprite
+        -Deposito~Bebida~ fanta
         -Deposito~Dulce~ dulces
         -Deposito~Moneda~ monVu
         +Expendedor(int Productos)
@@ -100,7 +101,7 @@ classDiagram
     Expendedor ..> EnumProducto : usa
     
     class Comprador {
-        -String sonido
+        -String tipo
         -int vuelto
         +Comprador(Moneda, intID, Expendedor)
         +cuantoVuelto()
