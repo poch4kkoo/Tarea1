@@ -29,6 +29,7 @@ Diagrama UML:
 
 El diagrama digitalizado es :
 
+```mermaid
 classDiagram
     %% Jerarquía de Excepciones
     class Exception {
