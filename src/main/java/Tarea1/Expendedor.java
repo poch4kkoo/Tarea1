@@ -35,17 +35,17 @@ public class Expendedor {
     }
 
     public Producto comprarProducto(Moneda m, EnumProducto TipoProducto)
-            throws NoHayProductoException, PagoInsuficienteException {
+            throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
 
         if (m == null){
-            return null;
+            throw new PagoIncorrectoException("el pago es incorrecto, ingresaste para pagar algo null");
         }
 
         int precio = TipoProducto.getPrecio();
 
         if (m.getValor() < precio){
             monVu.addElemento(m);
-            throw new PagoInsuficienteException("Pago Insuficiente, el dinero será devuelto");
+            throw new PagoInsuficienteException("pago insuficiente, no te alcanza");
         }
 
         Producto p = null;
