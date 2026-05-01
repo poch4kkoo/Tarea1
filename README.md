@@ -32,81 +32,80 @@ El diagrama digitalizado es :
 
 ```mermaid
 classDiagram
-    %% Jerarquía de Excepciones
-    class Exception {
-        <<Java Class>>
-    }
-    class NoHayProductoException
-    class PagoInsuficienteException
-    class PagoIncorrectoException
-    
-    NoHayProductoException --|> Exception
-    PagoInsuficienteException --|> Exception
-    PagoIncorrectoException --|> Exception
-
-    %% Jerarquía de Productos (ACTUALIZADA)
-    class Producto {
-        <<abstract>>
-        +getSerie() String
-    }
-    class Bebida {
-        <<abstract>>
-        +beber() String
-    }
-    class Dulce {
-        <<abstract>>
-        +comer() String
+    %% Relación de Existencia (Main es el dueño)
+    class Main {
+        +main(String[] args)
     }
     
-    Bebida --|> Producto
-    Dulce --|> Producto
-    
-    %% Bebidas
-    class CocaCola
-    class Sprite
-    class Fanta
-    
-    CocaCola --|> Bebida
-    Sprite --|> Bebida
-    Fanta --|> Bebida
-    
-    %% Dulces
-    class Snickers
-    class Super8
-    
-    Snickers --|> Dulce
-    Super8 --|> Dulce
-
-    %% Sistema de Máquina Expendedora
     class Expendedor {
         -Deposito~Bebida~ coca
         -Deposito~Bebida~ sprite
         -Deposito~Bebida~ fanta
         -Deposito~Dulce~ dulces
         -Deposito~Moneda~ monVu
-        +comprarProducto(Moneda, intID)
-        +getVuelto()
+        +comprarProducto(Moneda m, int id) Producto
+        +getVuelto() Moneda
     }
     
-    class Deposito~T~ {
-        -ArrayList~T~ lista
-        +add(T)
-        +get() T
-    }
-
-    Expendedor *-- Deposito : contiene
-
     class Comprador {
         -String sonido
         -int vuelto
-        +Comprador(Moneda, intID, Expendedor)
+        +Comprador(Moneda m, int id, Expendedor exp)
+        +cuantoVuelto() int
+        +queProducto() String
+    }
+
+    Main *-- Expendedor : compone
+    Main *-- Comprador : compone
+    Comprador --> Expendedor : interactúa
+
+    %% Jerarquía de Productos
+    class Producto {
+        <<abstract>>
+        -int serie
+        +getSerie() int
+    }
+    class Bebida { <<abstract>> }
+    class Dulce { <<abstract>> }
+    
+    Producto <|-- Bebida
+    Producto <|-- Dulce
+    Bebida <|-- CocaCola
+    Bebida <|-- Sprite
+    Bebida <|-- Fanta
+    Dulce <|-- Snickers
+    Dulce <|-- Super8
+
+    %% Estructura de Depósitos
+    class Deposito~T~ {
+        -ArrayList~T~ al
+        +add(T obj)
+        +get() T
     }
     
-    Comprador --> Expendedor : compra
+    Expendedor *-- Deposito : tiene
+    Deposito --> Producto : guarda
+    Deposito --> Moneda : guarda
+
+    %% Jerarquía de Monedas
+    class Moneda {
+        <<abstract>>
+        +getSerie() String
+        +getValor() int
+    }
+    Moneda <|-- Moneda100
+    Moneda <|-- Moneda500
+    Moneda <|-- Moneda1000
+    Moneda <|-- Moneda1500
+
+    %% Relaciones de Uso y Excepciones
+    Expendedor ..> Moneda : usa
     Comprador ..> Moneda : usa
-    Expendedor ..> Moneda : entrega
-    
-    %% Excepciones
+    Expendedor ..> PagoIncorrectoException : throws
     Expendedor ..> NoHayProductoException : throws
     Expendedor ..> PagoInsuficienteException : throws
-    Expendedor ..> PagoIncorrectoException : throws
+
+    class Exception { <<Java Class>> }
+    Exception <|-- PagoIncorrectoException
+    Exception <|-- NoHayProductoException
+    Exception <|-- PagoInsuficienteException
