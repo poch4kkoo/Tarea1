@@ -30,14 +30,15 @@ Boceto Diagrama UML:
 Se compartio a gemini el diagrama para poder estrucutrarlo de mejor manera y hacerlo mas estetico, como resultado nos dio un codigo, generando el mismo diagrama pero digitalizado.
 El diagrama digitalizado es :
 
-```mermaid
 classDiagram
     direction TB
 
     %% GRUPO SISTEMA CENTRAL
     subgraph Sistema_Principal
-        Main ..> Expendedor : instancia
-        Main ..> Comprador : instancia
+        %% CAMBIO SOLICITADO: Relación de Composición (Rombo Negro)
+        %% Indica que Main es el dueño del ciclo de vida de estos objetos.
+        Main *-- Expendedor : instancia y posee
+        Main *-- Comprador : instancia y posee
         Comprador --> Expendedor : interactua
     end
 
