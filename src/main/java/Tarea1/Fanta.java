@@ -1,7 +1,7 @@
 package Tarea1;
 
 /**
- *  Representa una bebida de sabor/marca Fanta.
+ *  Representa una bebida de marca Fanta.
  */
 public class Fanta extends Bebida {
 

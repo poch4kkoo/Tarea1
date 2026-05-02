@@ -16,7 +16,7 @@ public abstract class Moneda implements Comparable<Moneda> {
     public abstract int getValor();
 
     /**
-     * Metodo que devuelve una cadena d etexxto que identifica a la moneda por su valor y serie.
+     * Metodo que devuelve una cadena de texto que identifica a la moneda por su valor y serie.
      * El valor se obtiene mediante get.valor() y la serie medianet el identificador unico del objeto (hashcode).
      * @return Una cadena con el formato "valor: [valor], serie: [hashcode]".
      */
