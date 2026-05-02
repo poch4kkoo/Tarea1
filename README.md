@@ -29,6 +29,7 @@ Boceto Diagrama UML:
 
 Se compartio a gemini el diagrama para poder estrucutrarlo de mejor manera y hacerlo mas estetico, como resultado nos dio un codigo, generando el mismo diagrama pero digitalizado.
 El diagrama digitalizado es :
+```mermaid
 
 classDiagram
     direction TB
