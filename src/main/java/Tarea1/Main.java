@@ -90,8 +90,8 @@ public class Main {
         //Prueba de ordenamiento de monedas.
         ArrayList<Moneda> listaMonedas = new ArrayList<>();
         listaMonedas.add(new Moneda1000());
-        listaMonedas.add(new Moneda500());
         listaMonedas.add(new Moneda100());
+        listaMonedas.add(new Moneda500());
 
         System.out.println("Antes del ordenamiento: " + listaMonedas);
         listaMonedas.sort(null);

@@ -1,11 +1,27 @@
 package Tarea1;
 import java.util.Scanner;
+
+/**
+ * Clase que permite al ususario simular la compra de productos (bebidas y dulces)
+ * de una maquina expendora.
+ */
 public class MainInteractivo {
+
+    /**
+     * Ejecuta el bucle principal de interaccion de la maquina expendedora.
+     * Realiza el despliegue de productos, la gestion de pago y la ejecucion de
+     * la compra mediante @Link Comprador , capturando excepciones para
+     * notificar al usuario.
+     *
+     * @param args Argumentos de línea de comandos.
+     */
     public static void main(String[] args) {
+
         //iniciamos el expendedor con 3 unidades de cada producto
         Expendedor exp=new Expendedor(1);
         Scanner sc=new Scanner(System.in);
         System.out.println("=== Bienvenido a la maquina expendedora ===");
+
         while (true) {
             System.out.println("\n-_-_ Menu de productos _-_-");
             System.out.println("1.CocaCola  ($1000)");
@@ -15,13 +31,17 @@ public class MainInteractivo {
             System.out.println("5.Super8    ($500)");
             System.out.println("0.Apagar maquina/Salir");
             System.out.print("Seleccione una opcion: ");
+
             int seleccion=sc.nextInt();
+
             if (seleccion ==0) {
                 System.out.println("Apagando maquina.");
                 break;
             }
+
             //validacion de la opcion elegida
             EnumProducto tipoProducto =null;
+
             switch (seleccion) {
                 case 1->tipoProducto=EnumProducto.COCA;
                 case 2->tipoProducto=EnumProducto.SPRITE;
@@ -33,8 +53,10 @@ public class MainInteractivo {
                     continue; //vuelve al ciclo
                 }
             }
+
             System.out.print("Ingrese el valor de la moneda con la que pagara(100, 500, 1000): ");
             int valorMoneda=sc.nextInt();
+
             //instanciar la moneda que pida
             Moneda m =null;
             if (valorMoneda==100) {
@@ -47,6 +69,7 @@ public class MainInteractivo {
                 System.out.println("Esta maquina solo acepta monedas de 100, 500 y 1000");
                 continue;
             }
+
             //proceso de compra con manejo de errores
             try {
                 System.out.println("\nProcesando compra");
@@ -65,6 +88,7 @@ public class MainInteractivo {
                 System.out.println("Error inesperado: " + e.getMessage());
             }
         }
+
         sc.close(); //cerramos el scaner
     }
 }
