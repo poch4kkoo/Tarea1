@@ -32,79 +32,158 @@ El diagrama digitalizado es :
 
 ```mermaid
 classDiagram
-    %% Relación de Existencia (Main es el dueño)
+    direction TB
+
+    %% GRUPO SISTEMA CENTRAL
+    subgraph Sistema_Principal
+        Main ..> Expendedor : instancia
+        Main ..> Comprador : instancia
+        Comprador --> Expendedor : interactua
+    end
+
+    %% GRUPO PRODUCTOS
+    subgraph Jerarquia_Productos
+        Producto <|-- Bebida
+        Producto <|-- Dulce
+        Bebida <|-- CocaCola
+        Bebida <|-- Sprite
+        Bebida <|-- Fanta
+        Dulce <|-- Snickers
+        Dulce <|-- Super8
+    end
+
+    %% GRUPO MONEDAS
+    subgraph Jerarquia_Monedas
+        Moneda <|-- Moneda100
+        Moneda <|-- Moneda500
+        Moneda <|-- Moneda1000
+        Comparable <|.. Moneda : implementa 
+    end
+
+    %% RELACIONES ESTRUCTURALES
+    Expendedor *-- Deposito : tiene
+    Deposito ..> Producto : guarda
+    Deposito ..> Moneda : guarda
+
+    %% DEFINICIONES DE CLASES 
     class Main {
-        +main(String[] args)
+        +main(args: String[])
     }
-    
+
     class Expendedor {
         -Deposito~Bebida~ coca
         -Deposito~Bebida~ sprite
         -Deposito~Bebida~ fanta
-        -Deposito~Dulce~ dulces
+        -Deposito~Dulce~ super8
+        -Deposito~Dulce~ snickers
         -Deposito~Moneda~ monVu
-        +comprarProducto(Moneda m, int id) Producto
+        +Expendedor(num: int)
+        +comprarProducto(m: Moneda, TipoProducto: EnumProducto) Producto
         +getVuelto() Moneda
     }
-    
+
     class Comprador {
         -String tipo
         -int vuelto
-        +Comprador(Moneda m, int id, Expendedor exp)
+        +Comprador(m: Moneda, TipoProducto: EnumProducto, exp: Expendedor)
         +cuantoVuelto() int
         +queProducto() String
     }
 
-    Main *-- Expendedor : compone
-    Main *-- Comprador : compone
-    Comprador --> Expendedor : interactúa
-
-    %% Jerarquía de Productos
     class Producto {
         <<abstract>>
         -int serie
+        +Producto(serie: int)
+        +consumir()* String
         +getSerie() int
     }
-    class Bebida { <<abstract>> }
-    class Dulce { <<abstract>> }
-    
-    Producto <|-- Bebida
-    Producto <|-- Dulce
-    Bebida <|-- CocaCola
-    Bebida <|-- Sprite
-    Bebida <|-- Fanta
-    Dulce <|-- Snickers
-    Dulce <|-- Super8
 
-    %% Estructura de Depósitos
-    class Deposito~T~ {
-        -ArrayList~T~ al
-        +add(T obj)
-        +get() T
+    class Bebida {
+        <<abstract>>
+        +Bebida(s: int)
     }
-    
-    Expendedor *-- Deposito : tiene
-    Deposito --> Producto : guarda
-    Deposito --> Moneda : guarda
 
-    %% Jerarquía de Monedas
+    class Dulce {
+        <<abstract>>
+        +Dulce(s: int)
+    }
+
+    class CocaCola {
+        +CocaCola(s: int)
+        +consumir() String
+    }
+
+    class Sprite {
+        +Sprite(s: int)
+        +consumir() String
+    }
+
+    class Fanta {
+        +Fanta(s: int)
+        +consumir() String
+    }
+
+    class Snickers {
+        +Snickers(s: int)
+        +consumir() String
+    }
+
+    class Super8 {
+        +Super8(s: int)
+        +consumir() String
+    }
+
+    class Comparable~Moneda~ { 
+        <<interface>> 
+        +compareTo(m: Moneda) int 
+    } 
+
     class Moneda {
         <<abstract>>
-        +getSerie() String
+        +Moneda()
+        +getValor()* int
+        +toString() String
+        +compareTo(m: Moneda) int
+    }
+    class Moneda100 {
+        +Moneda100()
         +getValor() int
     }
-    Moneda <|-- Moneda100
-    Moneda <|-- Moneda500
-    Moneda <|-- Moneda1000
+    class Moneda500 {
+        +Moneda500()
+        +getValor() int
+    }
+    class Moneda1000 {
+        +Moneda1000()
+        +getValor() int
+    }
 
-    %% Relaciones de Uso y Excepciones
-    Expendedor ..> Moneda : usa
-    Comprador ..> Moneda : usa
+    class Deposito~T~ {
+        -ArrayList~T~ al
+        +addElemento(obj: T) void
+        +getElemento() T
+    }
+
+    class EnumProducto {
+        <<enumeration>>
+        COCA
+        SPRITE
+        FANTA
+        SNICKERS
+        SUPER8
+        -int precio
+        +getPrecio() int
+    }
+
+    %% EXCEPCIONES Y DEPENDENCIAS
+    class RuntimeException { <<Java Class>> }
+    
+    RuntimeException <|-- PagoIncorrectoException
+    RuntimeException <|-- NoHayProductoException
+    RuntimeException <|-- PagoInsuficienteException
+
+    Expendedor ..> EnumProducto : usa
+    Comprador ..> EnumProducto : usa
     Expendedor ..> PagoIncorrectoException : throws
     Expendedor ..> NoHayProductoException : throws
     Expendedor ..> PagoInsuficienteException : throws
-
-    class Exception { <<Java Class>> }
-    Exception <|-- PagoIncorrectoException
-    Exception <|-- NoHayProductoException
-    Exception <|-- PagoInsuficienteException
