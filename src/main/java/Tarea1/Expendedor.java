@@ -41,26 +41,26 @@ public class Expendedor {
     /**
      * Metodo que procesa la compra de un producto. Valida la moneda y el stock.
      *
-     * @param moneda La moneda utilizada para el pago.
+     * @param m La moneda utilizada para el pago.
      * @param TipoProducto El tipo de producto solicitado (EnumProducto).
      * @return El producto comprado si la transaccion es exitosa.
      * @throws NoHayProductoException Si el deposito  del producto esta vacio.
      * @throws PagoInsuficienteException Si el valor de la moneda es menor que el valor del producto.
      * @throws PagoIncorrectoException Si se intenta pagar con una moneda nula.
      */
-    public Producto comprarProducto(Moneda moneda, EnumProducto TipoProducto)
+    public Producto comprarProducto(Moneda m, EnumProducto TipoProducto)
             throws NoHayProductoException, PagoInsuficienteException, PagoIncorrectoException {
 
         // Validar que se ha ingresado una moneda
-        if (moneda == null){
+        if (m == null){
             throw new PagoIncorrectoException("el pago es incorrecto, ingresaste para pagar algo null");
         }
 
         int precio = TipoProducto.getPrecio();
 
         //Validar que el monto de la moneda alcance para el producto.
-        if (moneda.getValor() < precio){
-            monVu.addElemento(moneda);
+        if (m.getValor() < precio){
+            monVu.addElemento(m);
             throw new PagoInsuficienteException("pago insuficiente, no te alcanza");
         }
 
@@ -75,7 +75,7 @@ public class Expendedor {
 
         //Si se encontro el producto en el deposito.
         if (p != null) {
-            int vuelto = moneda.getValor() - precio;
+            int vuelto = m.getValor() - precio;
 
             //Generar vuelto en monedas de $100.
             while (vuelto >= 100) {
@@ -84,7 +84,7 @@ public class Expendedor {
             }
             return p;
         } else {
-            monVu.addElemento(moneda);
+            monVu.addElemento(m);
 
             throw new NoHayProductoException("Agotado");
         }

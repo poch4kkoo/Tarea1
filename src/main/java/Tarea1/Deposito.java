@@ -20,10 +20,10 @@ public class Deposito<T> {
 
     /**
      * Agrega un nuevo elemento al depósito.
-     * @param t El objeto que se desea almacenar.
+     * @param obj El objeto que se desea almacenar.
      */
-    public void addElemento(T t){
-        al.add(t);
+    public void addElemento(T obj){
+        al.add(obj);
     }
 
     /**

@@ -48,6 +48,7 @@ public class Main {
         System.out.println("Compraste: " + c.queProducto());
         System.out.println("Vuelto recibido: $" + c.cuantoVuelto());
 
+        System.out.println();
 
         //Prueba de ordenamiento de monedas.
         ArrayList<Moneda> listaMonedas = new ArrayList<>();
