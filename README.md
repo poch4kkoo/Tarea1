@@ -22,12 +22,12 @@ Para ejecutar el proyecto:
 1. Clonar el repositorio.
 2. Abrir el proyecto en un IDE (intelliJ IDEA recomendado).
 3. Configurar el SDK (java 17 o superior).
-4. Ejecutar la clase "Main" ubicada en "src/main/java/Tarea1/Main.java".
+4. Ejecutar la clase "MainInteractivo" ubicada en "src/main/java/Tarea1/MainInteractivo.java".
 
 Boceto Diagrama UML: 
 ![Diagrama UML](./imagen_2026-05-01_162943234.png)
 
-Se compartio a gemini el diagrama para poder estrucutrarlo de mejor manera y hacerlo mas estetico, como resultado nos dio un codigo, generando el mismo diagrama pero digitalizado.
+Se compartio a gemini el diagrama para poder estrucutrarlo de mejor manera y hacerlo mas estetico, como resultado nos dio un codigo, generando el mismo diagrama pero digitalizado. Este fue desarrollandose y perfeccionandose, agregando cosas que no estaban o estaban erradas.
 El diagrama digitalizado es :
 
 classDiagram
